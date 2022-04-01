@@ -19,7 +19,7 @@ RUN apk update && apk upgrade
 RUN apk add --update icu-dev bash git rsync nodejs npm yarn automake git file patch
 RUN apk add --update php7-tokenizer php7-pdo php7-simplexml php7-pdo_mysql php7-xdebug php7-dev gcc musl-dev make php7-fileinfo php7-iconv php7-xmlwriter php7-zip mysql-client php7-apcu php7-pecl-uploadprogress
 
-#RUN echo 'zend_extension=xdebug.so' > /etc/php7/conf.d/xdebug.ini
+RUN echo 'zend_extension=xdebug.so' > /etc/php7/conf.d/xdebug.ini
 
 COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 COPY ./config/php/memory_limit.ini /etc/php7/conf.d/memory_limit.ini
