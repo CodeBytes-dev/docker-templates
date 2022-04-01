@@ -1,5 +1,10 @@
-on: push
 name: deploy
+on:
+  push:
+    branches:
+      - 'develop'
+    tags:
+      - 'v*.*.*'
 jobs:
   build-and-push:
     name: build and push image
@@ -15,13 +20,33 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: build and push to docker
+      - name: build and push to docker with composer 1
         uses: docker/build-push-action@v2
         with:
           repository: ymiranda/php
           tag_with_ref: true
           tag_with_sha: true
-          tags: ${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: true
+          tags: "php7.4-nginx-composer1-latest"
           context: .
           file: ./php/7.4/nginx-alpine/Dockerfile
           platforms: linux/amd64,linux/arm64
+          build-args: |
+            COMPOSER_VERSION:1
+      - name: build and push to docker with composer 2
+        uses: docker/build-push-action@v2
+        with:
+          repository: ymiranda/php
+          tag_with_ref: true
+          tag_with_sha: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: true
+          tags: "php7.4-nginx-composer1-latest"
+          context: .
+          file: ./php/7.4/nginx-alpine/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          build-args: |
+            COMPOSER_VERSION:2
