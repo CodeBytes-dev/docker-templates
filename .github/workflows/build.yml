@@ -26,8 +26,8 @@ jobs:
           repository: ymiranda/php
           tag_with_ref: true
           tag_with_sha: true
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+#          cache-from: type=gha
+#          cache-to: type=gha,mode=max
           push: true
           tags: "docker.io/ymiranda/php:7.4-nginx-composer1-latest"
           context: .
@@ -41,8 +41,8 @@ jobs:
           repository: ymiranda/php
           tag_with_ref: true
           tag_with_sha: true
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+#          cache-from: type=gha
+#          cache-to: type=gha,mode=max
           push: true
           tags: "docker.io/ymiranda/php:7.4-nginx-composer2-latest"
           context: .
