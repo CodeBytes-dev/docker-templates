@@ -23,5 +23,5 @@ jobs:
           tag_with_sha: true
           tags: ${{ github.sha }}
           context: .
-          file: {context}/php/7.4/nginx-alpine/Dockerfile
+          file: "{{defaultContext}}:php/7.4/nginx-alpine/Dockerfile"
           platforms: linux/amd64,linux/arm64
