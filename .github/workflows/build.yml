@@ -17,7 +17,6 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v3
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Login to DockerHub
@@ -37,6 +36,7 @@ jobs:
     env:
       PHP: 7.4
     steps:
+      - uses: actions/checkout@v3
       - name: Extraer metadata (tags, labels) para Docker
         id: meta
         uses: docker/metadata-action@v3
