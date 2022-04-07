@@ -42,10 +42,10 @@ jobs:
           file: ./php/base/Dockerfile
           context: .
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.php }-c${{ matrix.composer }}-base
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.php }}-c${{ matrix.composer }}-base
           labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64
           build-args: |
             COMPOSER_VERSION=${{ matrix.composer }}
-            PHP_VERSION=${{ matrix.php }
+            PHP_VERSION=${{ matrix.php }}
       #            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
