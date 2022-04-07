@@ -7,8 +7,10 @@ FROM $composerPath as composer
 FROM $phpAlpine as php-alpine
 
 FROM php-alpine
-LABEL Maintainer="Tim de Pater <code@trafex.nl>" \
-      Description="Lightweight container with Nginx 1.18 & PHP 7.4 based on Alpine Linux."
+LABEL Maintainer="Luis Yair Miranda Gonzalez <yair.miranda@tec.mx>" \
+      Description="Imagen base de php, composer y nginx para proyectos"
+
+RUN apk update && apk upgrade
 
 # install the PHP extensions we need
 RUN set -eux; \
@@ -50,8 +52,6 @@ RUN set -eux; \
 COPY ./config/php/opcache.ini /usr/local/etc/php/conf.d/opcache-recommended.ini
 
 RUN apk add --update nginx
-RUN #docker-php-ext-configure gd curl session ctype ctype mysqli
-RUN #docker-php-ext-configure     zlib xml phar intl dom    mbstring
 
 # Configure nginx
 COPY config/nginx/nginx.conf /etc/nginx/nginx.conf
@@ -64,6 +64,10 @@ COPY config/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 COPY --from=composer /usr/bin/composer /usr/local/bin/composer
+
+RUN curl -OL https://github.com/drush-ops/drush-launcher/releases/latest/download/drush.phar \
+    && chmod +x drush.phar \
+    && mv drush.phar /usr/local/bin/drush
 
 # Setup document root
 RUN mkdir -p /var/www/app

@@ -38,27 +38,31 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        uses: docker/metadata-action@v3
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-      - name: build and push to docker with composer 1
-        uses: docker/build-push-action@v2
-        with:
-          builder: ${{ steps.builder1.outputs.name }}
-#          repository: ymiranda/php
-#          tag_with_ref: true
-#          tag_with_sha: true
-#          cache-from: type=gha
-#          cache-to: type=gha,mode=max
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          context: .
-          file: ./php/base/Dockerfile
-          platforms: linux/amd64
-          build-args: |
-            COMPOSER_VERSION=1
-            PHP_VERSION=7.4
+          tags: |
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
+            type=ref,event=branch
+            type=ref,event=pr
+#      - name: build and push to docker with composer 1
+#        uses: docker/build-push-action@v2
+#        with:
+#          builder: ${{ steps.builder1.outputs.name }}
+##          repository: ymiranda/php
+##          tag_with_ref: true
+##          tag_with_sha: true
+##          cache-from: type=gha
+##          cache-to: type=gha,mode=max
+#          push: true
+#          tags: ${{ steps.meta.outputs.tags }}
+#          labels: ${{ steps.meta.outputs.labels }}
+#          context: .
+#          file: ./php/base/Dockerfile
+#          platforms: linux/amd64
+#          build-args: |
+#            COMPOSER_VERSION=1
+#            PHP_VERSION=7.4
       - name: build and push to docker with composer 2
         uses: docker/build-push-action@v2
         with:
