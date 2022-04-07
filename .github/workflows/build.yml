@@ -38,7 +38,7 @@ jobs:
       PHP: 7.4
       COMPOSER: 2
     steps:
-      - name: Estraer metadata (tags, labels) para Docker
+      - name: Extraer metadata (tags, labels) para Docker
         id: meta
         uses: docker/metadata-action@v3
         with:
@@ -54,11 +54,11 @@ jobs:
           #          tag_with_sha: true
           #          cache-from: type=gha
           #          cache-to: type=gha,mode=max
+          file: ./php/base/Dockerfile
+          context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          context: .
-          file: ./php/base/Dockerfile
           platforms: linux/amd64
           build-args: |
             COMPOSER_VERSION=${{ env.COMPOSER }}
