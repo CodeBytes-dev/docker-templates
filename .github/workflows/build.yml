@@ -20,9 +20,7 @@ jobs:
     strategy:
       matrix:
         composer: [1, 2]
-        php: [7.0, 7.1, 7.2, 7.3, 7.4]
-    env:
-      PHP: 7.4
+        php: ["7.0", "7.1", "7.2", "7.3", "7.4"]
     steps:
       - uses: actions/checkout@v3
       - name: Set up QEMU
@@ -38,17 +36,16 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-      - name: build and push to docker with Composer ${{ matrix.composer }}
+      - name: build and push to docker with PHP ${{ matrix.php } and Composer ${{ matrix.composer }}
         uses: docker/build-push-action@v2
         with:
           file: ./php/base/Dockerfile
           context: .
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.PHP }}-c${{ matrix.composer }}-base
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.php }-c${{ matrix.composer }}-base
           labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64
           build-args: |
             COMPOSER_VERSION=${{ matrix.composer }}
-            PHP_VERSION=${{ env.PHP }}
-
+            PHP_VERSION=${{ matrix.php }
       #            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
