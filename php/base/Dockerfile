@@ -36,18 +36,18 @@ RUN set -eux; \
 	apk del --no-network .build-deps
 
 # Add gd extension
-RUN if [[ -z `echo $PHP_VERSION | cut -c 1-3`<="7.3" ]] ; then apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev && \
-  docker-php-ext-configure gd \
+RUN if [[ `echo $PHP_VERSION | cut -c 1-3` == "7.3" ]]; then apk add --no-cache \
+    freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev && \
+    docker-php-ext-configure gd \
     --with-gd \
     --with-freetype-dir=/usr/include/ \
     --with-png-dir=/usr/include/ \
     --with-jpeg-dir=/usr/include/ && \
-  NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
-  docker-php-ext-install -j${NPROC} gd && \
-  apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev  ; fi
+    NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
+    docker-php-ext-install -j${NPROC} gd && \
+    apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev  ; fi
 
-RUN if [[ -z `echo $PHP_VERSION | cut -c 1-3`="7.4" ]] ; then \
-     apk add --no-cache \
+RUN if [[ `echo $PHP_VERSION | cut -c 1-3` == "7.4" ]]; then apk add --no-cache \
       freetype \
       libpng \
       libjpeg-turbo \
@@ -88,7 +88,7 @@ RUN curl -OL https://github.com/drush-ops/drush-launcher/releases/latest/downloa
 RUN mkdir -p /var/www/app
 
 # Make sure files/folders needed by the processes are accessable when they run under the nobody user
-RUN chown -R nobody.nobody /var/www/app && \
+RUN chown -R nobody.nobody /var/www && \
   chown -R nobody.nobody /run && \
   chown -R nobody.nobody /var/lib/nginx && \
   chown -R nobody.nobody /var/log/nginx
@@ -98,7 +98,6 @@ USER nobody
 
 # Add application
 WORKDIR /var/www/app
-#COPY --chown=nobody src/ /var/www/html/
 
 # Expose the port nginx is reachable on
 EXPOSE 8080
