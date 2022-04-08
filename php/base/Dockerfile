@@ -7,8 +7,8 @@ FROM $composerPath as composer
 FROM $phpAlpine as php-alpine
 
 FROM php-alpine
-LABEL Maintainer="Luis Yair Miranda Gonzalez <yair.miranda@tec.mx>" \
-      Description="Imagen base de php, composer y nginx para proyectos"
+
+LABEL Maintainer="Luis Yair Miranda Gonzalez <yair.miranda@tec.mx>"
 
 RUN apk update && apk upgrade
 
@@ -17,21 +17,10 @@ RUN set -eux; \
 	\
 	apk add --no-cache --virtual .build-deps \
 		coreutils \
-		freetype-dev \
-		libjpeg-turbo-dev \
-		libpng-dev \
-		libwebp-dev \
 		libzip-dev \
 	; \
 	\
-	docker-php-ext-configure gd \
-		--with-freetype \
-		--with-jpeg=/usr/include \
-		--with-webp \
-	; \
-	\
 	docker-php-ext-install -j "$(nproc)" \
-		gd \
 		opcache \
 		pdo_mysql \
 		zip \
@@ -45,6 +34,32 @@ RUN set -eux; \
 	)"; \
 	apk add --no-network --virtual .drupal-phpexts-rundeps $runDeps; \
 	apk del --no-network .build-deps
+
+# Add gd extension
+RUN if [[ -z `echo $PHP_VERSION | cut -c 1-3`<="7.3" ]] ; then apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev && \
+  docker-php-ext-configure gd \
+    --with-gd \
+    --with-freetype-dir=/usr/include/ \
+    --with-png-dir=/usr/include/ \
+    --with-jpeg-dir=/usr/include/ && \
+  NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
+  docker-php-ext-install -j${NPROC} gd && \
+  apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev  ; fi
+
+RUN if [[ -z `echo $PHP_VERSION | cut -c 1-3`="7.4" ]] ; then \
+     apk add --no-cache \
+      freetype \
+      libpng \
+      libjpeg-turbo \
+      freetype-dev \
+      libpng-dev \
+      libjpeg-turbo-dev \
+      && docker-php-ext-configure gd \
+      --with-freetype \
+      --with-jpeg \
+      && NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
+      docker-php-ext-install -j${NPROC} gd && \
+      apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev  ; fi
 
 # set recommended PHP.ini settings
 # see https://secure.php.net/manual/en/opcache.installation.php
