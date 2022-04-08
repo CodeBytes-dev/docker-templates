@@ -36,7 +36,7 @@ RUN set -eux; \
 	apk del --no-network .build-deps
 
 # Add gd extension
-RUN if [[ `echo $PHP_VERSION | cut -c 1-3` == "7.3" ]]; then apk add --no-cache \
+RUN if echo "$PHP_VERSION" | grep -v "7.4"; then apk add --no-cache \
     freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev && \
     docker-php-ext-configure gd \
     --with-gd \
@@ -47,7 +47,7 @@ RUN if [[ `echo $PHP_VERSION | cut -c 1-3` == "7.3" ]]; then apk add --no-cache 
     docker-php-ext-install -j${NPROC} gd && \
     apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev  ; fi
 
-RUN if [[ `echo $PHP_VERSION | cut -c 1-3` == "7.4" ]]; then apk add --no-cache \
+RUN if echo "$PHP_VERSION" | grep -q "7.4"; then apk add --no-cache \
       freetype \
       libpng \
       libjpeg-turbo \
