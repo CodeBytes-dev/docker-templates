@@ -64,16 +64,15 @@ RUN if echo "$PHP_VERSION" | grep -q "7.4"; then apk add --no-cache \
 # set recommended PHP.ini settings
 # see https://secure.php.net/manual/en/opcache.installation.php
 
-COPY ./config/php/opcache.ini /usr/local/etc/php/conf.d/opcache-recommended.ini
-
 RUN apk add --update nginx
 
 # Configure nginx
 COPY config/nginx/nginx.conf /etc/nginx/nginx.conf
 
 # Configure PHP-FPM
-#COPY config/php/fpm-pool.conf /etc/php7/php-fpm.d/www.conf
-#COPY config/php/php.ini /etc/php7/conf.d/custom.ini
+COPY config/php/fpm-pool.conf /usr/local/etc/php-fpm.d/www.conf
+COPY config/php/php.ini /usr/local/etc/php/conf.d/custom.ini
+COPY config/php/opcache.ini /usr/local/etc/php/conf.d/opcache-recommended.ini
 
 # Configure supervisord
 COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
@@ -85,7 +84,8 @@ RUN curl -OL https://github.com/drush-ops/drush-launcher/releases/latest/downloa
     && mv drush.phar /usr/local/bin/drush
 
 # Setup document root
-RUN mkdir -p /var/www/app
+RUN mkdir -p /var/www/app  && \
+    mkdir -p /home/nobody
 
 # Make sure files/folders needed by the processes are accessable when they run under the nobody user
 RUN chown -R nobody.nobody /var/www && \
