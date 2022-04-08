@@ -64,7 +64,7 @@ RUN if echo "$PHP_VERSION" | grep -q "7.4"; then apk add --no-cache \
 # set recommended PHP.ini settings
 # see https://secure.php.net/manual/en/opcache.installation.php
 
-RUN apk add --update nginx
+RUN apk add --update nginx supervisor
 
 # Configure nginx
 COPY config/nginx/nginx.conf /etc/nginx/nginx.conf
