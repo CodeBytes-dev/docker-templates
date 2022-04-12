@@ -5,6 +5,7 @@ on:
       - 'php/base/**'
       - 'config/php/fpm-pool.conf'
       - 'config/php/opcache.ini'
+      - 'config/nginx/**'
       - 'config/supervisord.conf'
     branches:
       - 'develop'
