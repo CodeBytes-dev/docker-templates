@@ -11,6 +11,7 @@ FROM php-alpine
 LABEL Maintainer="Luis Yair Miranda Gonzalez <yair.miranda@tec.mx>"
 
 RUN apk update && apk upgrade
+RUN apk add --update nginx supervisor nginx-mod-http-perl libzip
 
 # install the PHP extensions we need
 RUN set -eux; \
@@ -34,8 +35,6 @@ RUN set -eux; \
 	)"; \
 	apk add --no-network --virtual .drupal-phpexts-rundeps $runDeps; \
 	apk del --no-network .build-deps
-
-RUN install-php-extensions zip
 
 # Add gd extension
 RUN if echo "$PHP_VERSION" | grep -v "7.4"; then apk add --no-cache \
@@ -65,8 +64,6 @@ RUN if echo "$PHP_VERSION" | grep -q "7.4"; then apk add --no-cache \
 
 # set recommended PHP.ini settings
 # see https://secure.php.net/manual/en/opcache.installation.php
-
-RUN apk add --update nginx supervisor nginx-mod-http-perl
 
 # Configure nginx
 COPY config/nginx/nginx.conf /etc/nginx/nginx.conf
