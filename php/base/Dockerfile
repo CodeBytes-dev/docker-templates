@@ -35,6 +35,8 @@ RUN set -eux; \
 	apk add --no-network --virtual .drupal-phpexts-rundeps $runDeps; \
 	apk del --no-network .build-deps
 
+RUN install-php-extensions zip
+
 # Add gd extension
 RUN if echo "$PHP_VERSION" | grep -v "7.4"; then apk add --no-cache \
     freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev && \
