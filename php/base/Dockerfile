@@ -82,16 +82,16 @@ RUN curl -OL https://github.com/drush-ops/drush-launcher/releases/latest/downloa
 
 # Setup document root
 RUN mkdir -p /var/www/app  && \
-    mkdir -p /home/nobody
+    mkdir -p /home/noroot
 
 RUN adduser -D -u 1000 noroot
-RUN addgroup nobody www-data
+RUN addgroup noroot www-data
 
-# Make sure files/folders needed by the processes are accessable when they run under the nobody user
-RUN chown -R nobody.nobody /var/www/app /run /var/lib/nginx /var/log/nginx /home/nobody
+# Make sure files/folders needed by the processes are accessable when they run under the noroot user
+RUN chown -R noroot.noroot /var/www/app /run /var/lib/nginx /var/log/nginx /home/noroot
 
 # Switch to use a non-root user from here on
-USER nobody
+USER noroot
 
 # Add application
 WORKDIR /var/www/app
