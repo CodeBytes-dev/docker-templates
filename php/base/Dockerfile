@@ -62,9 +62,6 @@ RUN if echo "$PHP_VERSION" | grep -q "7.4"; then apk add --no-cache \
       docker-php-ext-install -j${NPROC} gd && \
       apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev  ; fi
 
-# set recommended PHP.ini settings
-# see https://secure.php.net/manual/en/opcache.installation.php
-
 # Configure nginx
 COPY config/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY config/nginx/500/ /var/lib/nginx/html/
@@ -85,13 +82,13 @@ RUN curl -OL https://github.com/drush-ops/drush-launcher/releases/latest/downloa
 
 # Setup document root
 RUN mkdir -p /var/www/app  && \
-    mkdir -p /home/nobody
+    mkdir -p /home/www-data
 
-# Make sure files/folders needed by the processes are accessable when they run under the nobody user
-RUN chown -R nobody.nobody /var/www/app /run /var/lib/nginx /var/log/nginx
+# Make sure files/folders needed by the processes are accessable when they run under the www-data user
+RUN chown -R www-data.www-data /var/www/app /run /var/lib/nginx /var/log/nginx /home/www-data
 
 # Switch to use a non-root user from here on
-USER nobody
+USER www-data
 
 # Add application
 WORKDIR /var/www/app
