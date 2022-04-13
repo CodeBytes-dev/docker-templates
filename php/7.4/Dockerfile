@@ -32,7 +32,7 @@ RUN apk add --no-cache --virtual .build-deps pcre-dev ${PHPIZE_DEPS} \
     apk add --no-network --virtual .drupal-phpexts-rundeps $runDeps; \
     apk del --no-network .build-deps
 
-COPY config/php/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+#COPY config/php/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 COPY config/php/memory_limit.ini /usr/local/etc/php/conf.d/memory_limit.ini
 
 #RUN npm install -g @emulsify/cli gulp-cli
