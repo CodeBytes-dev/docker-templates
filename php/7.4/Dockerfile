@@ -35,10 +35,6 @@ RUN apk add --no-cache --virtual .build-deps pcre-dev ${PHPIZE_DEPS} \
 COPY config/php/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 COPY config/php/memory_limit.ini /usr/local/etc/php/conf.d/memory_limit.ini
 
-RUN curl -OL https://github.com/drush-ops/drush-launcher/releases/latest/download/drush.phar \
-    && chmod +x drush.phar \
-    && mv drush.phar /usr/local/bin/drush
-
 #RUN npm install -g @emulsify/cli gulp-cli
 #  chown -R noroot.noroot /home/noroot/.npm && \
 
