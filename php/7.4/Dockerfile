@@ -8,7 +8,7 @@ FROM image-composer
 #ARG NODE_DISTRO=linux-x64
 
 ENV TZ=Mexico/General
-ENV HOME="/home/www-data"
+ENV HOME="/home/nobody"
 ENV PATH="${HOME}/.composer/vendor/drupal/coder/coder_sniffer:${HOME}/.composer/vendor/drupal/sirbrillig/phpcs-variable-analysis:${HOME}/.composer/vendor/drupal/slevomat/coding-standard:${HOME}/.composer/vendor/bin:${PATH}"
 
 LABEL Maintainer="Luis Yair Miranda Gonzalez <yair.miranda@tec.mx>"
@@ -40,6 +40,6 @@ RUN curl -OL https://github.com/drush-ops/drush-launcher/releases/latest/downloa
     && mv drush.phar /usr/local/bin/drush
 
 #RUN npm install -g @emulsify/cli gulp-cli
-#  chown -R www-data.www-data /home/www-data/.npm && \
+#  chown -R nobody.nobody /home/nobody/.npm && \
 
-USER www-data
+USER nobody
