@@ -1,7 +1,13 @@
-ARG COMPOSER_VERSION=2
+ARG COMPOSER_VERSION=1
+ARG NODE_VERSION=8
 
 FROM ghcr.io/ymiranda-web/docker-templates:7.4-c$COMPOSER_VERSION-base as image-composer
+FROM node:$NODE_VERSION-alpine AS node
+
 FROM image-composer
+
+#ARG NODE_VERSION=v8.11.1
+#ARG NODE_DISTRO=linux-x64
 
 ENV TZ=Mexico/General
 ENV HOME="/home/noroot"
@@ -28,7 +34,16 @@ RUN apk add --no-cache --virtual .build-deps pcre-dev ${PHPIZE_DEPS} \
     apk add --no-network --virtual .drupal-phpexts-rundeps $runDeps; \
     apk del --no-network .build-deps
 
+COPY --from=node /usr/lib /usr/lib
+COPY --from=node /usr/local/share /usr/local/share
+COPY --from=node /usr/local/lib /usr/local/lib
+COPY --from=node /usr/local/include /usr/local/include
+COPY --from=node /usr/local/bin /usr/local/bin
+
 #COPY config/php/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 COPY config/php/memory_limit.ini /usr/local/etc/php/conf.d/memory_limit.ini
+
+RUN npm install -g @emulsify/cli gulp-cli && \
+  chown -R noroot.noroot /home/noroot/.npm
 
 USER noroot
