@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Set up QEMU
-      - uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v1
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
@@ -49,7 +49,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: build and push to docker with PHP ${{ matrix.php }} and Composer ${{ matrix.composer }} with Drupal
-      - uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v2
         with:
           file: ./php/${{ matrix.php }}/Dockerfile
           context: .
@@ -75,7 +75,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: build and push to docker with PHP ${{ matrix.php }} and Composer ${{ matrix.composer }} with Drupal
-      - uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v2
         with:
           file: ./php/${{ matrix.php }}/Dockerfile.node
           context: .

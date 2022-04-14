@@ -6,9 +6,6 @@ FROM node:$NODE_VERSION-alpine AS node
 
 FROM image-composer
 
-#ARG NODE_VERSION=v8.11.1
-#ARG NODE_DISTRO=linux-x64
-
 ENV TZ=Mexico/General
 ENV HOME="/home/noroot"
 ENV PATH="${HOME}/.composer/vendor/drupal/coder/coder_sniffer:${HOME}/.composer/vendor/drupal/sirbrillig/phpcs-variable-analysis:${HOME}/.composer/vendor/drupal/slevomat/coding-standard:${HOME}/.composer/vendor/bin:${PATH}"
