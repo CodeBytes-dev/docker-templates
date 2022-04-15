@@ -15,7 +15,6 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # musl-dev icu-dev automake
 RUN apk add --no-cache bash mysql-client git rsync file patch
 
-
 RUN apk add --no-cache --virtual .build-deps pcre-dev ${PHPIZE_DEPS} \
     && pecl install uploadprogress \
     && pecl install xdebug \

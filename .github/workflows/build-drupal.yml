@@ -23,7 +23,7 @@ jobs:
     strategy:
       matrix:
         composer: [1, 2]
-        php: ["7.2", "7.3", "7.4"]
+        php: ["7.4"]
     steps:
       - uses: actions/checkout@v3
       - name: Set up QEMU
@@ -61,7 +61,7 @@ jobs:
       matrix:
         composer: [1, 2]
         php: ["7.4"]
-        node: ["11", "12","latest"]
+        node: ["11", "12","current"]
     steps:
       - uses: actions/checkout@v3
       - name: Set up QEMU
