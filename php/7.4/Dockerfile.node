@@ -1,5 +1,5 @@
 ARG COMPOSER_VERSION=1
-ARG NODE_VERSION=8
+ARG NODE_VERSION=11
 
 FROM ghcr.io/ymiranda-web/docker-templates:7.4-c$COMPOSER_VERSION-base as image-composer
 FROM node:$NODE_VERSION-alpine AS node

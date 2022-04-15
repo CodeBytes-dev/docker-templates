@@ -61,7 +61,7 @@ jobs:
       matrix:
         composer: [1, 2]
         php: ["7.4"]
-        node: ["11","latest"]
+        node: ["11", "12","latest"]
     steps:
       - uses: actions/checkout@v3
       - name: Set up QEMU
