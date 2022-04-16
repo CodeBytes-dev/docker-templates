@@ -75,7 +75,6 @@ COPY config/php/opcache.ini /usr/local/etc/php/conf.d/opcache-recommended.ini
 COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 COPY --from=composer /usr/bin/composer /usr/local/bin/composer
-
 RUN curl -OL https://github.com/drush-ops/drush-launcher/releases/latest/download/drush.phar \
     && chmod +x drush.phar \
     && mv drush.phar /usr/local/bin/drush
