@@ -1,0 +1,13 @@
+name: Manual clean package
+on:
+  workflow_dispatch:
+
+jobs:
+  bump-version:
+    name: Clean package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/delete-package-versions@v3
+        with:
+          package-name: 'docker-templates'
+          min-versions-to-keep: 2
