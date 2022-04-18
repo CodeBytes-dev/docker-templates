@@ -24,8 +24,8 @@ jobs:
       packages: write
     strategy:
       matrix:
-        composer: [1, 2]
-        php: ["7.4"]
+        composer: [ 1, 2 ]
+        php: [ "7.4" ]
     steps:
       - uses: actions/checkout@v3
       - name: Set up QEMU
@@ -52,7 +52,7 @@ jobs:
           platforms: linux/amd64
           build-args: |
             COMPOSER_VERSION=${{ matrix.composer }}
-#            type=raw,value=latest,enable=${{ matrix.php == 7.4, matrix.composer == 2) }}
+  #            type=raw,value=latest,enable=${{ matrix.php == 7.4, matrix.composer == 2) }}
   build-node:
     name: build images
     runs-on: ubuntu-latest
@@ -61,9 +61,9 @@ jobs:
       packages: write
     strategy:
       matrix:
-        composer: [1, 2]
-        php: ["7.4"]
-        node: ["11", "14"]
+        composer: [ 1, 2 ]
+        php: [ "7.4" ]
+        node: [ "11", "16" ]
     steps:
       - uses: actions/checkout@v3
       - name: Set up QEMU
@@ -91,7 +91,7 @@ jobs:
           build-args: |
             COMPOSER_VERSION=${{ matrix.composer }}
             NODE_VERSION=${{ matrix.node }}
-#            type=raw,value=latest,enable=${{ matrix.php == 7.4, matrix.composer == 2) }}
+  #            type=raw,value=latest,enable=${{ matrix.php == 7.4, matrix.composer == 2) }}
   build-legacy:
     name: build images
     runs-on: ubuntu-latest
@@ -100,8 +100,8 @@ jobs:
       packages: write
     strategy:
       matrix:
-        composer: [1]
-        php: ["7.2","7.3"]
+        composer: [ 1 ]
+        php: [ "7.2","7.3" ]
     steps:
       - uses: actions/checkout@v3
       - name: Set up QEMU
