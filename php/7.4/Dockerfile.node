@@ -16,7 +16,7 @@ USER root
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # musl-dev icu-dev automake
-RUN apk add --no-cache bash mysql-client git rsync file patch autoconf musl-dev icu-dev automake autoconf g++ libc6-compat libjpeg-turbo-dev libpng-dev make nasm
+RUN apk add --no-cache bash mysql-client git rsync file patch autoconf musl-dev icu-dev automake autoconf g++ libc6-compat libjpeg-turbo-dev libpng-dev make nasm openssh
 
 RUN apk add --no-cache --virtual .build-deps pcre-dev ${PHPIZE_DEPS} \
     && pecl install uploadprogress \
