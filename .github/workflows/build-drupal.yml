@@ -38,7 +38,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Extraer metadata (not tags, labels) para Docker
         id: meta
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: build and push to docker with PHP ${{ matrix.php }} and Composer ${{ matrix.composer }} with Drupal
@@ -76,7 +76,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Extraer metadata (not tags, labels) para Docker
         id: meta
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: build and push to docker with PHP ${{ matrix.php }} and Composer ${{ matrix.composer }} with Drupal
@@ -114,7 +114,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Extraer metadata (not tags, labels) para Docker
         id: meta
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: build and push to docker with PHP ${{ matrix.php }} and Composer ${{ matrix.composer }} with Drupal
