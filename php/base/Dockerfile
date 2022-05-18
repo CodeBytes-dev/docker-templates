@@ -64,7 +64,6 @@ RUN if echo "$PHP_VERSION" | grep -q "7.4"; then apk add --no-cache \
       apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev  ; fi
 
 # Configure nginx
-RUN  rm /etc/nginx/conf.d/default.conf
 COPY config/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY config/nginx/500/ /var/lib/nginx/html/
 

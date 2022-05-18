@@ -30,5 +30,6 @@ RUN apk add --no-cache --virtual .build-deps pcre-dev ${PHPIZE_DEPS} \
 
 COPY config/php/7.2/fpm-pool.conf /usr/local/etc/php-fpm.d/www.conf
 COPY config/php/memory_limit.ini /usr/local/etc/php/conf.d/memory_limit.ini
+RUN  rm /etc/nginx/conf.d/default.conf
 
 USER noroot
