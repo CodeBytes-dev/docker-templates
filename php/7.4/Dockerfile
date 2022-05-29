@@ -31,3 +31,5 @@ RUN apk add --no-cache --virtual .build-deps pcre-dev ${PHPIZE_DEPS} \
 COPY config/php/memory_limit.ini /usr/local/etc/php/conf.d/memory_limit.ini
 
 USER noroot
+
+RUN composer global require drupal/coder
