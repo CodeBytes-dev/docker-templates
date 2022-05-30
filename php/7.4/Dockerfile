@@ -33,3 +33,4 @@ COPY config/php/memory_limit.ini /usr/local/etc/php/conf.d/memory_limit.ini
 USER noroot
 
 RUN composer global require drupal/coder
+RUN composer global require "squizlabs/php_codesniffer=*"
