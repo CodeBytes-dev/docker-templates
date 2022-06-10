@@ -54,6 +54,7 @@ jobs:
           build-args: |
             COMPOSER_VERSION=${{ matrix.composer }}
             PHP_VERSION=${{ matrix.php }}
+
   build-legacy:
     name: build images
     runs-on: ubuntu-latest
