@@ -9,6 +9,7 @@ FROM $phpAlpine as php-alpine
 FROM php-alpine
 
 LABEL Maintainer="Luis Yair Miranda Gonzalez <yair.miranda@tec.mx>"
+
 ENV NGINX_ROOT_DIR=web
 
 RUN apk update && apk upgrade
