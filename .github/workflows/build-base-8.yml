@@ -1,4 +1,4 @@
-name: deploy-base
+name: deploy-base-8
 on:
   push:
     paths:

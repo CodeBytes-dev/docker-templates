@@ -6,10 +6,15 @@ on:
       - 'php/7.3/**'
       - 'php/7.2/**'
       - 'config/php/**'
+      - 'config/nginx/**'
     branches:
       - 'develop'
     tags:
       - 'v*.*.*'
+  workflow_run:
+    workflows: [ "deploy-base" ]
+    types:
+      - completed
 
 env:
   REGISTRY: ghcr.io
