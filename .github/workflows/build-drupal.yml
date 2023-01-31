@@ -47,7 +47,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: build and push to docker with PHP ${{ matrix.php }} and Composer ${{ matrix.composer }} with Drupal
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           file: ./php/${{ matrix.php }}/Dockerfile
           context: .
@@ -85,7 +85,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: build and push to docker with PHP ${{ matrix.php }} and Composer ${{ matrix.composer }} with Drupal
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           file: ./php/${{ matrix.php }}/Dockerfile.node
           context: .
@@ -123,7 +123,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: build and push to docker with PHP ${{ matrix.php }} and Composer ${{ matrix.composer }} with Drupal
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           file: ./php/${{ matrix.php }}/Dockerfile
           context: .

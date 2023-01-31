@@ -44,7 +44,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       - name: build and push to docker with PHP ${{ matrix.php }} and Composer ${{ matrix.composer }}
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           file: ./php/8/Dockerfile.base
           context: .
